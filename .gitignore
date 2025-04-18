@@ -1,0 +1,40 @@
+# 👉 PyCharm / IntelliJ
+.idea/
+*.iml
+
+# 👉 Системные файлы
+.DS_Store
+Thumbs.db
+
+# 👉 Логи и временные файлы
+*.log
+*.tmp
+*.swp
+
+# 👉 Кэш браузеров и JMeter/Gatling
+*.jtl
+*.bak
+*.sav
+result_*
+
+# 👉 JMeter временные файлы
+jmeter.log
+bin/*.log
+report-output/
+
+# 👉 Gatling результаты
+Gatling/results/
+Gatling/user-files/simulations/**/*.class
+Gatling/user-files/resources/**/*.class
+
+# 👉 Python (на случай если используешь)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.env
+
+# 👉 Временные файлы Office (Word, Excel и т.п.)
+~$*
