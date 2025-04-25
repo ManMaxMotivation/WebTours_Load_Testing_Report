@@ -20,7 +20,7 @@ public class UC6_Users_registration extends Simulation {
     // - inferHtmlResources: Автоматически загружает связанные ресурсы (CSS, JS, изображения).
     // - Заголовки: Имитируют поведение браузера Firefox 137.0, включая поддержку сжатия (gzip, deflate, br),
     //   языковые предпочтения (ru-RU) и небезопасные запросы.
-    private HttpProtocolBuilder httpProtocol = http
+    public static HttpProtocolBuilder httpProtocol = http
             .baseUrl("http://localhost:1080")
             .inferHtmlResources()
             .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
@@ -34,7 +34,7 @@ public class UC6_Users_registration extends Simulation {
     // - headers_0: Для запросов к главной странице и меню (document, navigate, same-origin).
     // - headers_1, headers_2: Для запросов к навигационным элементам и страницам (frame, navigate, same-origin).
     // - headers_3: Для POST-запросов формы регистрации (multipart/form-data с boundary).
-    private Map<CharSequence, String> headers_0 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_0 = Map.ofEntries(
             Map.entry("Priority", "u=0, i"),
             Map.entry("Sec-Fetch-Dest", "document"),
             Map.entry("Sec-Fetch-Mode", "navigate"),
@@ -42,14 +42,14 @@ public class UC6_Users_registration extends Simulation {
             Map.entry("Sec-Fetch-User", "?1")
     );
 
-    private Map<CharSequence, String> headers_1 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_1 = Map.ofEntries(
             Map.entry("Priority", "u=4"),
             Map.entry("Sec-Fetch-Dest", "frame"),
             Map.entry("Sec-Fetch-Mode", "navigate"),
             Map.entry("Sec-Fetch-Site", "same-origin")
     );
 
-    private Map<CharSequence, String> headers_2 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_2 = Map.ofEntries(
             Map.entry("Priority", "u=4"),
             Map.entry("Sec-Fetch-Dest", "frame"),
             Map.entry("Sec-Fetch-Mode", "navigate"),
@@ -57,7 +57,7 @@ public class UC6_Users_registration extends Simulation {
             Map.entry("Sec-Fetch-User", "?1")
     );
 
-    private Map<CharSequence, String> headers_3 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_3 = Map.ofEntries(
             Map.entry("Content-Type", "multipart/form-data; boundary=----geckoformboundarycf3bb6f64d230fe94c673ac7726e8c35"),
             Map.entry("Origin", "http://localhost:1080"),
             Map.entry("Priority", "u=4"),
@@ -72,18 +72,18 @@ public class UC6_Users_registration extends Simulation {
     // - usedCombinations: Хранит использованные комбинации имен для предотвращения дубликатов.
     // - random: Генератор случайных чисел для выбора данных.
     // - streets, cities: Списки адресов и городов для формирования адресов пользователей.
-    private static final Set<String> usedCombinations = Collections.synchronizedSet(new HashSet<>());
-    private static final Random random = new Random();
+    public static final Set<String> usedCombinations = Collections.synchronizedSet(new HashSet<>());
+    public static final Random random = new Random();
 
-    private static final List<String> streets = List.of(
+    public static final List<String> streets = List.of(
             "Evergreen Terrace", "Main St", "Oakwood Drive", "Maple Ave", "Sunset Blvd",
             "Riverside Lane", "Pine Street", "Cedar Avenue", "Hilltop Road", "Birch Court",
-            "Willow Lane", "Chestnut St", "Elmwood Dr", "Spruce Way", "Highland Rd",
+            "Willow Lane", "Chestnut St", "Elmwood Dr", "SprUCe Way", "Highland Rd",
             "Valley View", "Lake Shore Dr", "Meadow Lane", "Forest Ave", "Parkside Dr",
             "Canyon Rd", "Orchard St", "Brookside Ave", "Ridgeway Dr", "Sunnyhill Ln"
     );
 
-    private static final List<String> cities = List.of(
+    public static final List<String> cities = List.of(
             "New York, NY 10001", "Los Angeles, CA 90001", "San Francisco, CA 94110",
             "Chicago, IL 60614", "Houston, TX 77002", "Miami, FL 33101", "Seattle, WA 98101",
             "Austin, TX 73301", "Denver, CO 80201", "Boston, MA 02108", "Phoenix, AZ 85001",
@@ -94,12 +94,12 @@ public class UC6_Users_registration extends Simulation {
     );
 
     // Метод для очистки строки: убирает все символы, кроме букв и цифр, и делает буквы маленькими
-    private String cleanString(String input) {
+    public static String cleanString(String input) {
         return input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase().trim();
     }
 
     // Метод для преобразования специальных символов в латинские буквы
-    private String transliterateAndClean(String input) {
+    public static String transliterateAndClean(String input) {
         Map<Character, Character> map = Map.ofEntries(
                 Map.entry('ı', 'i'), Map.entry('İ', 'I'), Map.entry('ş', 's'), Map.entry('Ş', 'S'),
                 Map.entry('ç', 'c'), Map.entry('Ç', 'C'), Map.entry('ğ', 'g'), Map.entry('Ğ', 'G'),
@@ -120,7 +120,7 @@ public class UC6_Users_registration extends Simulation {
     // - Проверяет уникальность имени через usedCombinations.
     // - Создает пароль из 12 случайных символов.
     // - Выбирает случайные адрес и город из списков streets и cities.
-    private Map<String, String> getRandomUser() throws IOException {
+    public static Map<String, String> getRandomUser() throws IOException {
         File file = new File("src/test/resources/NewUsers.csv");
         boolean fileExists = file.exists();
         File parentDir = file.getParentFile();
@@ -181,7 +181,7 @@ public class UC6_Users_registration extends Simulation {
     // - Вызывает getRandomUser для получения данных.
     // - Сохраняет username, password, firstName, lastName, address1, address2 в сессии.
     // - Проверяет, что все данные сохранены, иначе выбрасывает исключение.
-    private ChainBuilder generateUser = group("Generate_User").on(
+    public static ChainBuilder generateUser = group("Generate_User").on(
             exec(session -> {
                 try {
                     Map<String, String> user = getRandomUser();
@@ -208,7 +208,7 @@ public class UC6_Users_registration extends Simulation {
     // Описание: Выполняет два запроса для загрузки главной страницы и навигационной панели.
     // - Home_Page_0: Загружает главную страницу с параметром signOff=1 для сброса сессии.
     // - Home_Page_1: Загружает навигационную панель и извлекает userSession.
-    private ChainBuilder homePage = group("Home_Page").on(
+    public static ChainBuilder homePage = group("Home_Page").on(
             exec(
                     http("Home_Page_0")
                             .get("/cgi-bin/welcome.pl?signOff=1")
@@ -242,7 +242,7 @@ public class UC6_Users_registration extends Simulation {
     // 📝 Шаг перехода на страницу регистрации
     // Описание: Загружает страницу регистрации для ввода данных нового пользователя.
     // - Sign_Up_Now_0: Запрашивает страницу с формой регистрации.
-    private ChainBuilder signUpNow = group("Sign_Up_Now").on(
+    public static ChainBuilder signUpNow = group("Sign_Up_Now").on(
             exec(
                     http("Sign_Up_Now_0")
                             .get("/cgi-bin/login.pl?username=&password=&getInfo=true")
@@ -262,7 +262,7 @@ public class UC6_Users_registration extends Simulation {
     // 📋 Шаг проверки данных пользователя
     // Описание: Проверяет, что данные пользователя доступны в сессии перед отправкой формы.
     // - Выбрасывает исключение, если данные отсутствуют.
-    private ChainBuilder logUserData = group("Log_User_Data").on(
+    public static ChainBuilder logUserData = group("Log_User_Data").on(
             exec(session -> {
                 if (session.getString("username") == null || session.getString("password") == null ||
                         session.getString("firstName") == null || session.getString("lastName") == null ||
@@ -276,7 +276,7 @@ public class UC6_Users_registration extends Simulation {
     // 📬 Шаг отправки формы регистрации
     // Описание: Отправляет POST-запрос с данными пользователя для регистрации.
     // - Submit_Form_0: Отправляет форму с username, password, firstName, lastName, address1, address2.
-    private ChainBuilder submitForm = group("Submit_Form").on(
+    public static ChainBuilder submitForm = group("Submit_Form").on(
             exec(
                     http("Submit_Form_0")
                             .post("/cgi-bin/login.pl")
@@ -291,13 +291,13 @@ public class UC6_Users_registration extends Simulation {
                             .formParam("register.x", "46")
                             .formParam("register.y", "11")
                             .check(
-                                    substring("Registration successful").optional(), // Проверяет успешность регистрации
+                                    substring("Registration sUCcessful").optional(), // Проверяет успешность регистрации
                                     substring("Welcome to Web Tours").exists(), // Проверяет наличие текста приветствия
                                     substring("Thank you, <b>#{username}</b>, for registering").exists(), // Проверяет персональное сообщение
                                     bodyString().saveAs("tempResponse_3") // Сохраняет тело ответа
                             )
                     // Описание проверок:
-                    // - substring("Registration successful").optional(): Проверяет, что регистрация прошла успешно (опционально, если текст может отсутствовать).
+                    // - substring("Registration sUCcessful").optional(): Проверяет, что регистрация прошла успешно (опционально, если текст может отсутствовать).
                     // - substring("Welcome to Web Tours").exists(): Подтверждает загрузку страницы после регистрации.
                     // - substring("Thank you, <b>#{username}</b>, for registering").exists(): Убеждается, что регистрация персонализирована для пользователя.
                     // - bodyString().saveAs("tempResponse_3"): Сохраняет HTML-ответ для отладки.
@@ -307,7 +307,7 @@ public class UC6_Users_registration extends Simulation {
     // 📊 Шаг проверки ответа сервера
     // Описание: Проверяет, что ответ сервера после регистрации сохранен в сессии.
     // - Выбрасывает исключение, если ответ отсутствует.
-    private ChainBuilder logResponse = group("Log_Response").on(
+    public static ChainBuilder logResponse = group("Log_Response").on(
             exec(session -> {
                 if (session.getString("tempResponse_3") == null) {
                     throw new RuntimeException("Response body missing in session");
@@ -321,7 +321,7 @@ public class UC6_Users_registration extends Simulation {
     // - Registration_Confirmation_0: Загружает страницу меню.
     // - Registration_Confirmation_1: Загружает навигационную панель.
     // - Registration_Confirmation_2: Загружает страницу приветствия.
-    private ChainBuilder registrationConfirmation = group("Registration_Confirmation").on(
+    public static ChainBuilder registrationConfirmation = group("Registration_Confirmation").on(
             exec(
                     http("Registration_Confirmation_0")
                             .get("/cgi-bin/welcome.pl?page=menus")
@@ -351,7 +351,7 @@ public class UC6_Users_registration extends Simulation {
                     // - bodyString().saveAs("tempResponse_5"): Сохраняет HTML-ответ для отладки.
             ),
             exec(
-                    http("Registration_Confirmation_2)
+                    http("Registration_Confirmation_2")
                             .get("/cgi-bin/login.pl?welcome=true")
                             .headers(headers_1)
                             .check(
@@ -369,9 +369,9 @@ public class UC6_Users_registration extends Simulation {
     // 🔓 Шаг выхода из системы
     // Описание: Выполняет запрос для завершения сессии пользователя.
     // - Logout_0: Отправляет запрос на логаут.
-    private ChainBuilder logout = group("Logout").on(
+    public static ChainBuilder logout = group("Logout").on(
             exec(
-                    http("Logout_0")
+                    http("logout_0")
                             .get("/cgi-bin/welcome.pl?signOff=1") // Запрос на выход
                             .headers(headers_0)
                             .check(
@@ -380,7 +380,7 @@ public class UC6_Users_registration extends Simulation {
                             )
             ),
             exec(
-                    http("Logout_1")
+                    http("logout_1")
                             .get("/cgi-bin/nav.pl?in=home") // Обновление навигационной панели
                             .headers(headers_1)
                             .check(
@@ -395,7 +395,7 @@ public class UC6_Users_registration extends Simulation {
     // Описание: Выводит в консоль данные зарегистрированного пользователя (логин и пароль).
     // - Извлекает username и password из сессии.
     // - Логирует учетные данные для отладки и проверки.
-    private ChainBuilder logRegisteredUsers = group("Log_Registered_Users").on(
+    public static ChainBuilder logRegisteredUsers = group("Log_Registered_Users").on(
             exec(session -> {
                 String username = session.getString("username");
                 String password = session.getString("password");
@@ -422,7 +422,7 @@ public class UC6_Users_registration extends Simulation {
     // 8. Выход из системы.
     // 9. Логирование зарегистрированных пользователей.
     // Паузы (3 секунды) между некоторыми шагами имитируют реальное поведение пользователя.
-    private ScenarioBuilder scn = scenario("UC6_Users_registration")
+    public static ScenarioBuilder scn = scenario("UC6_Users_registration")
             .exec(generateUser)
             .pause(3)
             .exec(homePage)
@@ -442,8 +442,8 @@ public class UC6_Users_registration extends Simulation {
             .exec(logRegisteredUsers);
 
     // ⚙️ Настройка нагрузки: 3 пользователя в секунду, 34 секунды (~100 использований)
-    private static final int USER_COUNT = 1;
-    private static final Duration TEST_DURATION = Duration.ofSeconds(1);
+    public static final int USER_COUNT = 10;
+    public static final Duration TEST_DURATION = Duration.ofSeconds(3);
 
     {
         // 🚀 Запуск сценария с настройкой HTTP-протокола

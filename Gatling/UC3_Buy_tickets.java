@@ -13,7 +13,7 @@ import static io.gatling.javaapi.http.HttpDsl.*;
 public class UC3_Buy_tickets extends Simulation {
 
     // 🌐 Настройка HTTP-протокола: базовый URL, заголовки, поведение браузера
-    private HttpProtocolBuilder httpProtocol = http
+    public static HttpProtocolBuilder httpProtocol = http
             .baseUrl("http://localhost:1080") // Базовый URL приложения Web Tours
             .inferHtmlResources() // Автоматическая загрузка связанных ресурсов (CSS, JS, изображения)
             .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Форматы ответа
@@ -25,7 +25,7 @@ public class UC3_Buy_tickets extends Simulation {
     // Используется для всех запросов в сценарии, обеспечивая единообразие и совместимость с Web Tours.
 
     // 📋 Заголовки для различных типов запросов
-    private Map<CharSequence, String> headers_0 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_0 = Map.ofEntries(
             Map.entry("Priority", "u=0, i"),
             Map.entry("Sec-Fetch-Dest", "document"),
             Map.entry("Sec-Fetch-Mode", "navigate"),
@@ -33,14 +33,14 @@ public class UC3_Buy_tickets extends Simulation {
             Map.entry("Sec-Fetch-User", "?1"),
             Map.entry("Upgrade-Insecure-Requests", "1")
     ); // Для главной страницы, выхода и переходов
-    private Map<CharSequence, String> headers_1 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_1 = Map.ofEntries(
             Map.entry("Priority", "u=4"),
             Map.entry("Sec-Fetch-Dest", "frame"),
             Map.entry("Sec-Fetch-Mode", "navigate"),
             Map.entry("Sec-Fetch-Site", "same-origin"),
             Map.entry("Upgrade-Insecure-Requests", "1")
     ); // Для навигационных фреймов
-    private Map<CharSequence, String> headers_2 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_2 = Map.ofEntries(
             Map.entry("Origin", "http://localhost:1080"),
             Map.entry("Priority", "u=0, i"),
             Map.entry("Sec-Fetch-Dest", "document"),
@@ -49,7 +49,7 @@ public class UC3_Buy_tickets extends Simulation {
             Map.entry("Sec-Fetch-User", "?1"),
             Map.entry("Upgrade-Insecure-Requests", "1")
     ); // Для POST-запроса логина
-    private Map<CharSequence, String> headers_8 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_8 = Map.ofEntries(
             Map.entry("Content-Type", "multipart/form-data; boundary=----geckoformboundaryc0b0b6ec6c43edd6b1420a5e10375a3e"),
             Map.entry("Origin", "http://localhost:1080"),
             Map.entry("Priority", "u=4"),
@@ -59,7 +59,7 @@ public class UC3_Buy_tickets extends Simulation {
             Map.entry("Sec-Fetch-User", "?1"),
             Map.entry("Upgrade-Insecure-Requests", "1")
     ); // Для поиска рейса
-    private Map<CharSequence, String> headers_9 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_9 = Map.ofEntries(
             Map.entry("Content-Type", "multipart/form-data; boundary=----geckoformboundarycb59c73863c264eec9c7faa52bc0c2c4"),
             Map.entry("Origin", "http://localhost:1080"),
             Map.entry("Priority", "u=4"),
@@ -69,7 +69,7 @@ public class UC3_Buy_tickets extends Simulation {
             Map.entry("Sec-Fetch-User", "?1"),
             Map.entry("Upgrade-Insecure-Requests", "1")
     ); // Для выбора рейса
-    private Map<CharSequence, String> headers_10 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_10 = Map.ofEntries(
             Map.entry("Content-Type", "multipart/form-data; boundary=----geckoformboundary7e65d094c09310774c7b8aac56e3f0f"),
             Map.entry("Origin", "http://localhost:1080"),
             Map.entry("Priority", "u=4"),
@@ -79,7 +79,7 @@ public class UC3_Buy_tickets extends Simulation {
             Map.entry("Sec-Fetch-User", "?1"),
             Map.entry("Upgrade-Insecure-Requests", "1")
     ); // Для оплаты билета
-    private Map<CharSequence, String> headers_14 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_14 = Map.ofEntries(
             Map.entry("Accept", "image/avif,image/webp,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5"),
             Map.entry("Priority", "u=5, i"),
             Map.entry("Sec-Fetch-Dest", "image"),
@@ -90,20 +90,20 @@ public class UC3_Buy_tickets extends Simulation {
     // Используются для точного соответствия реальным HTTP-запросам, отправляемым Web Tours.
 
     // 🗂️ Фидер: циклически раздаёт пользователей из users.csv
-    private static final FeederBuilder<String> usersFeeder = csv("users.csv").circular();
+    public static final FeederBuilder<String> usersFeeder = csv("users.csv").circular();
     // Описание: Фидер загружает данные пользователей из users.csv (src/test/resources) и раздаёт их
     // виртуальным пользователям по кругу. Каждая запись содержит поля username, password, firstName,
     // lastName, address1, address2. Используется для авторизации и заполнения формы оплаты.
 
     // 🗂️ Вспомогательные данные
-    private static final Random random = new Random();
+    public static final Random random = new Random();
     // Описание: Объект Random используется для генерации случайных данных (например, номера кредитной карты,
     // выбора рейса, дат). Инициализируется один раз для всех пользователей.
 
     // 🏠 Шаг 1: Загрузка главной страницы
-    private ChainBuilder homePage = group("Home_Page").on(
+    public static ChainBuilder homePage = group("Home_Page").on(
             exec(
-                    http("Home_Page_0")
+                    http("home_page_0")
                             .get("/cgi-bin/welcome.pl?signOff=1") // Загрузка главной страницы с параметром выхода
                             .headers(headers_0)
                             .check(
@@ -112,7 +112,7 @@ public class UC3_Buy_tickets extends Simulation {
                             )
             ),
             exec(
-                    http("Home_Page_1")
+                    http("home_page_1")
                             .get("/cgi-bin/nav.pl?in=home") // Загрузка навигационной панели
                             .headers(headers_1)
                             .check(
@@ -132,7 +132,7 @@ public class UC3_Buy_tickets extends Simulation {
     // - Логирование: Отсутствует, так как нет явных System.out.println.
 
     // 🔐 Шаг 2: Вход в систему
-    private ChainBuilder login = group("Login").on(
+    public static ChainBuilder login = group("Login").on(
             feed(usersFeeder), // 🗂️ Подстановка данных пользователя из users.csv
             exec(session -> {
                 // ⚙️ Формирование полного имени пассажира для формы оплаты
@@ -140,7 +140,7 @@ public class UC3_Buy_tickets extends Simulation {
                 return session.set("pass1", pass1);
             }),
             exec(
-                    http("Login_0")
+                    http("login_0")
                             .post("/cgi-bin/login.pl") // Отправка формы логина
                             .headers(headers_2)
                             .formParam("userSession", "#{userSession}") // Идентификатор сессии из шага homePage
@@ -151,25 +151,25 @@ public class UC3_Buy_tickets extends Simulation {
                             .formParam("JSFormSubmit", "off")
                             .check(
                                     substring("User password was correct").exists(), // ✅ Проверка: авторизация успешна
-                                    bodyString().saveAs("tempResponse_login1") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_login_0") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Login_1")
+                    http("login_1")
                             .get("/cgi-bin/nav.pl?page=menu&in=home") // Обновление навигационной панели
                             .headers(headers_1)
                             .check(
                                     substring("Web Tours Navigation Bar").exists(), // ✅ Проверка: панель обновлена
-                                    bodyString().saveAs("tempResponse_login2") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_login_1") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Login_2")
+                    http("login_2")
                             .get("/cgi-bin/login.pl?intro=true") // Загрузка страницы приветствия
                             .headers(headers_1)
                             .check(
                                     substring("Welcome").exists(), // ✅ Проверка: страница приветствия загружена
-                                    bodyString().saveAs("tempResponse_login3") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_login_2") // 💾 Сохранение ответа
                             )
             )
     );
@@ -178,27 +178,27 @@ public class UC3_Buy_tickets extends Simulation {
     //   из users.csv для каждого виртуального пользователя.
     // - exec(session -> ...): Создаёт переменную pass1 (например, "Jo Jo") путём конкатенации firstName и lastName
     //   для использования в форме оплаты.
-    // - Login_0: Отправляет POST-запрос с формой логина, используя userSession и данные из фидера.
-    //   Проверяет успешность авторизации по тексту "User password was correct" и сохраняет ответ в tempResponse_login1.
-    // - Login_1: Обновляет навигационную панель после входа, проверяя её наличие ("Web Tours Navigation Bar"),
-    //   сохраняет ответ в tempResponse_login2.
-    // - Login_2: Загружает страницу приветствия, подтверждая вход текстом "Welcome", сохраняет ответ в tempResponse_login3.
+    // - login_0: Отправляет POST-запрос с формой логина, используя userSession и данные из фидера.
+    //   Проверяет успешность авторизации по тексту "User password was correct" и сохраняет ответ в tempResponse_login_0.
+    // - login_1: Обновляет навигационную панель после входа, проверяя её наличие ("Web Tours Navigation Bar"),
+    //   сохраняет ответ в tempResponse_login_1.
+    // - login_2: Загружает страницу приветствия, подтверждая вход текстом "Welcome", сохраняет ответ в tempResponse_login_2.
     // - Извлечённые переменные:
     //   - pass1: Полное имя пассажира (например, "Jo Jo") для формы оплаты.
     //   - username, password, firstName, lastName, address1, address2: Из users.csv, используются в login и payment.
     // - Логирование: Отсутствует, но username и password логируются позже в logFlightSelection.
 
     // ✈️ Шаг 3: Переход к поиску рейсов
-    private ChainBuilder flights = group("Flights").on(
+    public static ChainBuilder flights = group("Flights").on(
             exec(
-                    http("Search Flights Page")
+                    http("flights_0")
                             .get("/cgi-bin/welcome.pl?page=search") // Переход на страницу поиска рейсов
                             .headers(headers_0)
                             .resources(
-                                    http("Nav Flights")
+                                    http("flights_1")
                                             .get("/cgi-bin/nav.pl?page=menu&in=flights") // Обновление навигационной панели
                                             .headers(headers_1),
-                                    http("Reservations Welcome")
+                                    http("flights_2")
                                             .get("/cgi-bin/reservations.pl?page=welcome") // Загрузка формы поиска
                                             .headers(headers_1)
                                             .check(
@@ -269,9 +269,9 @@ public class UC3_Buy_tickets extends Simulation {
                     })
     );
     // Описание: Этот блок переходит на страницу поиска рейсов и динамически генерирует параметры поиска.
-    // - Search Flights Page: Загружает страницу поиска (welcome.pl?page=search) с параллельной загрузкой ресурсов.
-    // - Nav Flights: Обновляет навигационную панель для раздела рейсов.
-    // - Reservations Welcome: Загружает форму поиска, извлекая список городов из выпадающего меню
+    // - Flights_0: Загружает страницу поиска (welcome.pl?page=search) с параллельной загрузкой ресурсов.
+    // - Flights_1: Обновляет навигационную панель для раздела рейсов.
+    // - Flights_2: Загружает форму поиска, извлекая список городов из выпадающего меню
     //   (<option value="...">) с помощью regex и сохраняя в cityList (например, ["Denver", "London", ...]).
     //   Проверяет наличие текста "Find Flight" для подтверждения загрузки формы.
     // - Логика в exec(session -> ...):
@@ -294,9 +294,9 @@ public class UC3_Buy_tickets extends Simulation {
     //   - Выводит число пассажиров: "Generated numPassengers: 2".
 
     // 🔍 Шаг 4: Поиск рейсов
-    private ChainBuilder findFlight = group("Find_Flight").on(
+    public static ChainBuilder findFlight = group("Find_Flight").on(
             exec(
-                    http("Find_Flight_0")
+                    http("find_flight_0")
                             .post("/cgi-bin/reservations.pl") // Отправка формы поиска рейса
                             .headers(headers_8)
                             .formParam("advanceDiscount", "0") // Без скидки
@@ -311,6 +311,7 @@ public class UC3_Buy_tickets extends Simulation {
                             .formParam("findFlights.y", "11")
                             .check(
                                     regex("value=\"(\\d+;\\d+;\\d{2}/\\d{2}/\\d{4})\"").findAll().saveAs("outboundFlights"), // ✅ Динамическая проверка: извлечение доступных рейсов
+                        //            regex("from ([^ ]+) to").saveAs("paymentDepartCity"), // ✅ Динамическая проверка: извлечение города отправления
                                     bodyString().saveAs("tempResponse_findFlight") // 💾 Сохранение ответа
                             )
             ),
@@ -344,7 +345,7 @@ public class UC3_Buy_tickets extends Simulation {
     //   - Предупреждение при отсутствии рейсов: "Warning: No outbound flights extracted in findFlight".
 
     // 🎫 Шаг 5: Выбор рейса
-    private ChainBuilder flightSelection = group("Flight_Selection").on(
+    public static ChainBuilder flightSelection = group("Flight_Selection").on(
             exec(session -> {
                 // ⚙️ Выбор случайного рейса из доступных
                 List<String> outboundFlights = session.get("outboundFlights");
@@ -362,7 +363,7 @@ public class UC3_Buy_tickets extends Simulation {
                 return randomFlight != null && !randomFlight.isEmpty();
             }).then(
                     exec(
-                            http("Flight_Selection_0")
+                            http("flight_selection_0")
                                     .post("/cgi-bin/reservations.pl") // Отправка формы выбора рейса
                                     .headers(headers_9)
                                     .formParam("outboundFlight", "#{randomFlight}") // Выбранный рейс
@@ -400,7 +401,7 @@ public class UC3_Buy_tickets extends Simulation {
     //   - Ошибка при отсутствии рейсов: "Error: No outbound flights found in session, skipping flight selection".
 
     // 💳 Шаг 6: Оплата билета
-    private ChainBuilder payment = group("Payment").on(
+    public static ChainBuilder payment = group("Payment").on(
             doIf(session -> {
                 // 🔄 Условие: выполнять запрос, только если рейс выбран
                 String randomFlight = session.getString("randomFlight");
@@ -419,7 +420,7 @@ public class UC3_Buy_tickets extends Simulation {
                                 .set("expDate", expDate);
                     }),
                     exec(
-                            http("Payment_0")
+                            http("payment_0")
                                     .post("/cgi-bin/reservations.pl") // Отправка формы оплаты
                                     .headers(headers_10)
                                     .formParam("firstName", "#{firstName}") // Имя из users.csv
@@ -443,7 +444,7 @@ public class UC3_Buy_tickets extends Simulation {
                                     .check(
                                             substring("Thank you for booking").exists(), // ✅ Проверка: покупка подтверждена
                                             regex("Flight (\\d+)").saveAs("paymentFlight"), // ✅ Динамическая проверка: извлечение номера рейса
-                                            regex("from ([^ ]+) to").saveAs("paymentDepartCity"), // ✅ Динамическая проверка: извлечение города отправления
+                                            regex("from (.+?) to").saveAs("paymentDepartCity"), // ✅ Динамическая проверка: извлечение города отправления
                                             regex("to ([^<.]+)").saveAs("paymentArrivalCity"), // ✅ Динамическая проверка: извлечение города прибытия
                                             bodyString().saveAs("tempResponse_payment") // 💾 Сохранение ответа
                                     )
@@ -482,48 +483,48 @@ public class UC3_Buy_tickets extends Simulation {
     //   - Выводит полный ответ: "Payment Response: <HTML>".
 
     // 🗓️ Шаг 7: Просмотр маршрута
-    private ChainBuilder itinerary = group("Itinerary").on(
+    public static ChainBuilder itinerary = group("Itinerary").on(
             exec(
-                    http("Itinerary_0")
+                    http("itinerary_0")
                             .get("/cgi-bin/welcome.pl?page=itinerary") // Переход на страницу маршрута
                             .headers(headers_0)
                             .check(
                                     substring("already logged").exists(), // ✅ Проверка: пользователь авторизован
-                                    bodyString().saveAs("tempResponse_itinerary1") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_itinerary0") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Itinerary_1")
+                    http("itinerary_1")
                             .get("/cgi-bin/nav.pl?page=menu&in=itinerary") // Обновление навигационной панели
                             .headers(headers_1)
                             .check(
                                     substring("Itinerary").exists(), // ✅ Проверка: панель маршрута загружена
-                                    bodyString().saveAs("tempResponse_itinerary2") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_itinerary1") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Itinerary_2")
+                    http("itinerary_2")
                             .get("/cgi-bin/itinerary.pl") // Загрузка списка бронирований
                             .headers(headers_1)
                             .check(
                                     substring("Flights List").exists(), // ✅ Проверка: список рейсов загружен
-                                    bodyString().saveAs("tempResponse_itinerary3") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_itinerary2") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Itinerary_3")
+                    http("itinerary_3")
                             .get("/WebTours/images/cancelreservation.gif") // Загрузка изображения кнопки отмены
                             .headers(headers_14)
                             .check(
-                                    bodyBytes().saveAs("tempResponse_itinerary4") // 💾 Сохранение ответа
+                                    bodyBytes().saveAs("tempResponse_itinerary3") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Itinerary_4")
+                    http("itinerary_4")
                             .get("/WebTours/images/cancelallreservations.gif") // Загрузка изображения полной отмены
                             .headers(headers_14)
                             .check(
-                                    bodyBytes().saveAs("tempResponse_itinerary5") // 💾 Сохранение ответа
+                                    bodyBytes().saveAs("tempResponse_itinerary4") // 💾 Сохранение ответа
                             )
             )
     );
@@ -542,9 +543,9 @@ public class UC3_Buy_tickets extends Simulation {
     // - Логирование: Отсутствует.
 
     // 🔓 Шаг 8: Выход из системы
-    private ChainBuilder logout = group("Logout").on(
+    public static ChainBuilder logout = group("Logout").on(
             exec(
-                    http("Logout_0")
+                    http("logout_0")
                             .get("/cgi-bin/welcome.pl?signOff=1") // Запрос на выход
                             .headers(headers_0)
                             .check(
@@ -553,7 +554,7 @@ public class UC3_Buy_tickets extends Simulation {
                             )
             ),
             exec(
-                    http("Logout_1")
+                    http("logout_1")
                             .get("/cgi-bin/nav.pl?in=home") // Обновление навигационной панели
                             .headers(headers_1)
                             .check(
@@ -574,7 +575,7 @@ public class UC3_Buy_tickets extends Simulation {
     // - Логирование: Отсутствует.
 
     // 📜 Шаг 9: Логирование результатов выбора рейса
-    private ChainBuilder logFlightSelection = group("Log_Flight_Selection").on(
+    public static ChainBuilder logFlightSelection = group("Log_Flight_Selection").on(
             exec(session -> {
                 // ⚙️ Извлечение данных из сессии для логирования
                 String username = session.getString("username");
@@ -633,8 +634,9 @@ public class UC3_Buy_tickets extends Simulation {
     // - Извлечённые переменные: Нет новых, используются существующие из сессии.
     // - Логирование: Подробный вывод всех данных и результатов проверок.
 
-    // 📋 Сценарий: объединение всех шагов с паузами
-    private ScenarioBuilder scn = scenario("UC3_Buy_ticket")
+    // 📋 Сценарий: объединение всех шагов с паузами и пейсингом
+    public static ScenarioBuilder scn = scenario("UC3_Buy_ticket")
+            .pace(Duration.ofSeconds(30)) // ⏲️ Пейсинг: каждый цикл занимает ровно 30 секунд
             .exec(homePage) // Шаг 1: Главная страница
             .pause(3) // ⏳ Пауза 3 секунды для реалистичности
             .exec(login) // Шаг 2: Вход
@@ -652,25 +654,51 @@ public class UC3_Buy_tickets extends Simulation {
             .exec(logout) // Шаг 8: Выход
             .pause(3) // ⏳ Пауза
             .exec(logFlightSelection); // Шаг 9: Логирование
-    // Описание: Определяет полный сценарий UC3_Buy_ticket, объединяя все шаги в логическую последовательность.
-    // Пауза в 3 секунды между шагами эмулирует реальное поведение пользователя, делая нагрузку более естественной.
-    // Каждый шаг выполняется последовательно, передавая данные через сессию.
 
-    // ⚙️ Настройка нагрузки: 1 пользователь в секунду, 1 секунда
-    private static final int USER_COUNT = 2;
-    private static final Duration TEST_DURATION = Duration.ofSeconds(2);
+// 📝 Описание:
+// - Сценарий: Симуляция покупки билета (UC3_Buy_ticket) с шагами от главной страницы до логирования.
+// - Пейсинг: Каждый цикл сценария занимает ровно 30 секунд (pace), добавляя паузу, если выполнение завершилось раньше.
+// - Паузы: Между шагами добавлены фиксированные паузы по 3 секунды для реалистичности поведения пользователей.
+
+
+    // ⚙️ Конфигурация нагрузки: 5 пользователей за 5 секунду
+    public static final int USER_COUNT = 10;
+    public static final Duration TEST_DURATION = Duration.ofSeconds(10);
 
     {
-        // 🚀 Запуск сценария с настройкой HTTP-протокола
+        // 🚀 Инициализация сценария с настройкой HTTP-протокола
         setUp(
-                scn.injectOpen(
-                        constantUsersPerSec(USER_COUNT).during(TEST_DURATION)
+                scn.injectClosed(
+                        constantConcurrentUsers(USER_COUNT).during(TEST_DURATION)
                 )
         ).protocols(httpProtocol);
     }
+
+// 📝 Описание:
+// - Модель нагрузки: Закрытая (injectClosed), поддерживает фиксированное количество одновременно активных пользователей.
+// - Интенсивность: 5 пользователей одновременно активны в течение 5 секунды (constantConcurrentUsers).
+// - Длительность: Тест выполняется 5 секунду (during).
+// - Протокол: Все запросы используют глобальные настройки HTTP (httpProtocol).
+
+}
+
+
+
+
+    // ⚙️ Настройка нагрузки: 1 пользователь в секунду, 1 секунда
+//    public static static final int USER_COUNT = 10;
+//    public static static final Duration TEST_DURATION = Duration.ofSeconds(1);
+
+    //   {
+        // 🚀 Запуск сценария с настройкой HTTP-протокола
+    //       setUp(
+    //              scn.injectOpen(
+    //                  constantUsersPerSec(USER_COUNT).during(TEST_DURATION)
+    //          )
+    //    ).protocols(httpProtocol);
+    // }
     // Описание: Определяет профиль нагрузки для теста.
     // - constantUsersPerSec(1): Запускает 1 нового пользователя каждую секунду.
     // - during(1): Продолжительность теста — 1 секунда, что создаёт 1 пользователя.
     // - injectOpen: Модель открытой нагрузки, где пользователи добавляются независимо от завершения предыдущих.
     // - protocols(httpProtocol): Применяет глобальные настройки HTTP ко всем запросам.
-}

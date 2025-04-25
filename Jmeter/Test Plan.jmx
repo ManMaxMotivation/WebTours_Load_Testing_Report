@@ -6,6 +6,8 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <com.di.jmeter.kafka.config.KafkaProducerConfig guiclass="TestBeanGUI" testclass="com.di.jmeter.kafka.config.KafkaProducerConfig" testname="Kafka Producer Config" enabled="false">
@@ -66,13 +68,13 @@
         <boolProp name="DNSCacheManager.isCustomResolver">false</boolProp>
       </DNSCacheManager>
       <hashTree/>
-      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
         <collectionProp name="CookieManager.cookies"/>
         <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
       </CookieManager>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="url" elementType="Argument">
             <stringProp name="Argument.name">url</stringProp>
@@ -82,7 +84,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config">
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
         <stringProp name="filename">A:\\\\users.csv</stringProp>
         <stringProp name="fileEncoding"></stringProp>
         <stringProp name="variableNames">username,password,firstName,lastName,address1,address2</stringProp>
@@ -94,7 +96,7 @@
         <stringProp name="shareMode">shareMode.thread</stringProp>
       </CSVDataSet>
       <hashTree/>
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -131,7 +133,7 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -568,7 +570,7 @@ log.info(&quot;Cleared userSession_${threadNum}&quot;)</stringProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="416177299">&quot;userSession&quot; value=</stringProp>
               </collectionProp>
@@ -578,7 +580,7 @@ log.info(&quot;Cleared userSession_${threadNum}&quot;)</stringProp>
               <intProp name="Assertion.test_type">16</intProp>
             </ResponseAssertion>
             <hashTree/>
-            <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor_Extract userSession">
+            <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor_Extract userSession" enabled="true">
               <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
               <stringProp name="BoundaryExtractor.refname">userSession</stringProp>
               <stringProp name="BoundaryExtractor.lboundary">userSession&quot; value=&quot;</stringProp>
@@ -588,7 +590,7 @@ log.info(&quot;Cleared userSession_${threadNum}&quot;)</stringProp>
               <stringProp name="BoundaryExtractor.match_number">1</stringProp>
             </BoundaryExtractor>
             <hashTree/>
-            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor userSession">
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor userSession" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -618,23 +620,23 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
           <stringProp name="ActionProcessor.duration">2000</stringProp>
         </TestAction>
         <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
             <stringProp name="ConstantTimer.delay">3000</stringProp>
             <stringProp name="RandomTimer.range">0</stringProp>
           </UniformRandomTimer>
           <hashTree/>
         </hashTree>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Check Login">
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Check Login" enabled="true">
           <stringProp name="IfController.condition">${__groovy(!vars.get(&quot;userSession&quot;).equals(&quot;Not Found&quot;) &amp;&amp; prev.isSuccessful())}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
           <boolProp name="IfController.useExpression">true</boolProp>
         </IfController>
         <hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="login">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="login" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">localhost</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -772,7 +774,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-1002738365">User password was correct</stringProp>
                 </collectionProp>
@@ -784,7 +786,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/nav.pl?page=menu&amp;in=home">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/nav.pl?page=menu&amp;in=home" enabled="true">
               <stringProp name="HTTPSampler.domain">localhost</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -813,7 +815,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Accept" elementType="Header">
                     <stringProp name="Header.name">Accept</stringProp>
@@ -874,7 +876,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-1824641563">Web Tours Navigation</stringProp>
                 </collectionProp>
@@ -968,7 +970,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1753361864">Welcome to Web Tours</stringProp>
                 </collectionProp>
@@ -993,7 +995,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
           <stringProp name="ActionProcessor.duration">2000</stringProp>
         </TestAction>
         <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
             <stringProp name="ConstantTimer.delay">3000</stringProp>
             <stringProp name="RandomTimer.range">0</stringProp>
           </UniformRandomTimer>
@@ -1004,7 +1006,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
         <stringProp name="TestPlan.comments">с одной ступенью длительностью 20 минут (помним про 2 минуты запаса, итого 22 минуты)</stringProp>
       </TestFragmentController>
       <hashTree/>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="1. Сценарий_Покупка билетов_100%_20 min " enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="1. Сценарий_Покупка билетов_100%_20 min " enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="237570189">
             <stringProp name="50">2</stringProp>
@@ -1027,7 +1029,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
           <stringProp name="ActionProcessor.duration"></stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
             <intProp name="calcMode">0</intProp>
             <doubleProp>
               <name>throughput</name>
@@ -1070,7 +1072,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
             <stringProp name="shareMode">shareMode.thread</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -1147,7 +1149,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
@@ -1159,7 +1161,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flights">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flights" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -1253,7 +1255,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1258963768">Web Tours Navigation Bar</stringProp>
                 </collectionProp>
@@ -1347,7 +1349,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="2073320104">name=&quot;findFlights&quot;</stringProp>
                 </collectionProp>
@@ -1358,7 +1360,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/welcome.pl?page=search">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/welcome.pl?page=search" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -1445,7 +1447,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-140138716">returned to the search page</stringProp>
                 </collectionProp>
@@ -1463,17 +1465,17 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="find_flights">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="find_flights" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -1582,7 +1584,7 @@ vars.put(&quot;userSession_${threadNum}&quot;, userSession)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -1657,7 +1659,7 @@ vars.put(&quot;seatPref&quot;, seatPref)
 vars.put(&quot;roundtrip&quot;, roundtrip)</stringProp>
               </JSR223PreProcessor>
               <hashTree/>
-              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor outboundFlight ">
+              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor outboundFlight " enabled="true">
                 <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
                 <stringProp name="BoundaryExtractor.refname">outboundFlight</stringProp>
                 <stringProp name="BoundaryExtractor.lboundary">outboundFlight&quot; value=&quot;</stringProp>
@@ -1667,7 +1669,7 @@ vars.put(&quot;roundtrip&quot;, roundtrip)</stringProp>
                 <stringProp name="BoundaryExtractor.match_number">-1</stringProp>
               </BoundaryExtractor>
               <hashTree/>
-              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor returnFlight">
+              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor returnFlight" enabled="true">
                 <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
                 <stringProp name="BoundaryExtractor.refname">returnFlight</stringProp>
                 <stringProp name="BoundaryExtractor.lboundary">&quot;returnFlight&quot; value=&quot;</stringProp>
@@ -1688,7 +1690,7 @@ vars.put(&quot;roundtrip&quot;, roundtrip)</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler">
+            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
               <boolProp name="displayJMeterProperties">false</boolProp>
               <boolProp name="displayJMeterVariables">true</boolProp>
               <boolProp name="displaySystemProperties">false</boolProp>
@@ -1701,13 +1703,13 @@ vars.put(&quot;roundtrip&quot;, roundtrip)</stringProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flight_selection">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flight_selection" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -1828,7 +1830,7 @@ vars.put(&quot;roundtrip&quot;, roundtrip)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -2010,17 +2012,17 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="payment">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="payment" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -2129,7 +2131,7 @@ if (!AssertionResult.isFailure()) {
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -2305,13 +2307,13 @@ if (!flightNumberFound || !dateFound) {
             </DebugSampler>
             <hashTree/>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -2628,7 +2630,7 @@ if (!flightNumberFound || !dateFound) {
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -2837,13 +2839,13 @@ if (!flightNumberFound || !dateFound) {
             </DebugSampler>
             <hashTree/>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">5000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -2851,7 +2853,7 @@ if (!flightNumberFound || !dateFound) {
           </hashTree>
         </hashTree>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="2. Сценарий_Удаление броней UTG_100%_20 min " enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="2. Сценарий_Удаление броней UTG_100%_20 min " enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="-515099426">
             <stringProp name="49">1</stringProp>
@@ -2884,7 +2886,7 @@ if (!flightNumberFound || !dateFound) {
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC2_Main_delete_random">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC2_Main_delete_random" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
@@ -2998,7 +3000,7 @@ if (!flightNumberFound || !dateFound) {
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
@@ -3227,7 +3229,7 @@ if (!flightNumberFound || !dateFound) {
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor" enabled="true">
+              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor">
                 <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
                 <stringProp name="BoundaryExtractor.refname">flightID</stringProp>
                 <stringProp name="BoundaryExtractor.lboundary">name=&quot;flightID&quot; value=&quot;</stringProp>
@@ -3237,7 +3239,7 @@ if (!flightNumberFound || !dateFound) {
                 <stringProp name="BoundaryExtractor.match_number">-1</stringProp>
               </BoundaryExtractor>
               <hashTree/>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Accept" elementType="Header">
                     <stringProp name="Header.name">Accept</stringProp>
@@ -3298,7 +3300,7 @@ if (!flightNumberFound || !dateFound) {
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1240663974">&quot;flightID&quot; value</stringProp>
                 </collectionProp>
@@ -3316,7 +3318,7 @@ if (!flightNumberFound || !dateFound) {
             </DebugSampler>
             <hashTree/>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
@@ -3332,7 +3334,7 @@ if (!flightNumberFound || !dateFound) {
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/itinerary.pl" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/itinerary.pl">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -3352,7 +3354,7 @@ if (!flightNumberFound || !dateFound) {
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -3422,7 +3424,7 @@ requestBody.append(&quot;------&quot;).append(boundary).append(&quot;--\r\n&quot
 vars.put(&quot;removeFlightsBody&quot;, requestBody.toString())</stringProp>
               </JSR223PreProcessor>
               <hashTree/>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Accept" elementType="Header">
                     <stringProp name="Header.name">Accept</stringProp>
@@ -3503,7 +3505,7 @@ vars.put(&quot;removeFlightsBody&quot;, requestBody.toString())</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="423677151">removeFlights</stringProp>
                 </collectionProp>
@@ -3555,13 +3557,13 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
             </DebugSampler>
             <hashTree/>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">5000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -3776,7 +3778,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler">
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
             <boolProp name="displayJMeterProperties">false</boolProp>
             <boolProp name="displayJMeterVariables">true</boolProp>
             <boolProp name="displaySystemProperties">false</boolProp>
@@ -3784,7 +3786,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
           <hashTree/>
         </hashTree>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="3. Сценарий_Регистрация новых пользователей_100%_20 min " enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="3. Сценарий_Регистрация новых пользователей_100%_20 min " enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="-515099426">
             <stringProp name="49">1</stringProp>
@@ -3817,7 +3819,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC3_Main_user_registration" enabled="true">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC3_Main_user_registration">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
@@ -4218,13 +4220,13 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="sign_up_now">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="sign_up_now" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -4341,7 +4343,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/WebTours/profileValidate.js">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/WebTours/profileValidate.js" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -4380,7 +4382,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -4538,17 +4540,17 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="complete_the_form">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="complete_the_form" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -4568,7 +4570,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Accept" elementType="Header">
                     <stringProp name="Header.name">Accept</stringProp>
@@ -4649,7 +4651,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1416404865">for registering and welcome</stringProp>
                 </collectionProp>
@@ -4660,7 +4662,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -4681,7 +4683,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -4997,7 +4999,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -5220,7 +5222,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="4. Сценарий_Поиск билета без оплаты_100%_20 min " enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="4. Сценарий_Поиск билета без оплаты_100%_20 min " enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="237570189">
             <stringProp name="50">2</stringProp>
@@ -5237,13 +5239,13 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
       </kg.apc.jmeter.threads.UltimateThreadGroup>
       <hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration"></stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
             <intProp name="calcMode">0</intProp>
             <doubleProp>
               <name>throughput</name>
@@ -5285,7 +5287,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="shareMode">shareMode.all</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -5373,13 +5375,13 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flights" enabled="true">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flights">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -5683,17 +5685,17 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="find_flights">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="find_flights" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
               <stringProp name="scriptLanguage">groovy</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
@@ -5772,7 +5774,7 @@ vars.put(&quot;departDate&quot;, departDate)
 vars.put(&quot;returnDate&quot;, returnDate)</stringProp>
             </JSR223PreProcessor>
             <hashTree/>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -5911,13 +5913,13 @@ vars.put(&quot;returnDate&quot;, returnDate)</stringProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flight_selection">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flight_selection" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -6038,7 +6040,7 @@ vars.put(&quot;returnDate&quot;, returnDate)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -6223,7 +6225,7 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -6426,13 +6428,13 @@ if (!AssertionResult.isFailure()) {
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -6446,7 +6448,7 @@ if (!AssertionResult.isFailure()) {
           <hashTree/>
         </hashTree>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="5. Сценарий_Просмотр списка путевых листов_100%_20 min " enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="5. Сценарий_Просмотр списка путевых листов_100%_20 min " enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="272663987">
             <stringProp name="51">3</stringProp>
@@ -6593,7 +6595,7 @@ if (!AssertionResult.isFailure()) {
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
@@ -6916,7 +6918,7 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -7226,7 +7228,7 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -7445,7 +7447,7 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -7459,7 +7461,7 @@ if (!AssertionResult.isFailure()) {
           <hashTree/>
         </hashTree>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="6. Сценарий_Логин, логаут_100%_20 min " enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="6. Сценарий_Логин, логаут_100%_20 min ">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="-515099426">
             <stringProp name="49">1</stringProp>
@@ -7598,7 +7600,7 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="filename"></stringProp>
           </ResultCollector>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
               <stringProp name="764597751">Test Plan</stringProp>
@@ -7606,13 +7608,13 @@ if (!AssertionResult.isFailure()) {
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -7821,7 +7823,7 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
@@ -8028,7 +8030,7 @@ if (!AssertionResult.isFailure()) {
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
@@ -9921,7 +9923,7 @@ if (!flightNumberFound || !dateFound) {
             </collectionProp>
           </ModuleController>
           <hashTree/>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
@@ -10782,7 +10784,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC3_Main_user_registration">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC3_Main_user_registration" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
@@ -11509,7 +11511,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="complete_the_form">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="complete_the_form" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -11614,7 +11616,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1416404865">for registering and welcome</stringProp>
                 </collectionProp>
@@ -12684,7 +12686,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration">0</stringProp>
@@ -13560,7 +13562,7 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="shareMode">shareMode.all</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -18579,7 +18581,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="complete_the_form">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="complete_the_form" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -18684,7 +18686,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1416404865">for registering and welcome</stringProp>
                 </collectionProp>
@@ -22037,7 +22039,7 @@ if (!AssertionResult.isFailure()) {
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC1_Main_Buy">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC1_Main_Buy" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
@@ -25586,11 +25588,11 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="complete_the_form">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="complete_the_form" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -25691,7 +25693,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1416404865">for registering and welcome</stringProp>
                 </collectionProp>
@@ -30860,7 +30862,7 @@ if (!flightNumberFound || !dateFound) {
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
       </kg.apc.jmeter.threads.UltimateThreadGroup>
       <hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration"></stringProp>
@@ -32669,7 +32671,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1416404865">for registering and welcome</stringProp>
                 </collectionProp>
@@ -36017,7 +36019,7 @@ if (!AssertionResult.isFailure()) {
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC1_Main_Buy">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC1_Main_Buy" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
@@ -36996,11 +36998,11 @@ if (!AssertionResult.isFailure()) {
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="payment">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="payment" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -37020,7 +37022,7 @@ if (!AssertionResult.isFailure()) {
               </elementProp>
             </HTTPSamplerProxy>
             <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager">
+              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header manager" enabled="true">
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Accept" elementType="Header">
                     <stringProp name="Header.name">Accept</stringProp>
@@ -37109,7 +37111,7 @@ if (!AssertionResult.isFailure()) {
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -37236,7 +37238,7 @@ vars.put(&quot;paymentBody&quot;, requestBody.toString())
 vars.put(&quot;boundary_payment&quot;, boundary2)</stringProp>
               </JSR223PreProcessor>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="2094968911">&lt;title&gt;Reservation Made!&lt;/title&gt;</stringProp>
                 </collectionProp>
@@ -37246,7 +37248,7 @@ vars.put(&quot;boundary_payment&quot;, boundary2)</stringProp>
                 <intProp name="Assertion.test_type">16</intProp>
               </ResponseAssertion>
               <hashTree/>
-              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion">
+              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -38867,7 +38869,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC3_Main_user_registration">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC3_Main_user_registration" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
@@ -38887,7 +38889,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
             <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
           </CookieManager>
           <hashTree/>
-          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -38924,7 +38926,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
             <stringProp name="filename"></stringProp>
           </ResultCollector>
           <hashTree/>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -38961,7 +38963,7 @@ if (response.contains(&quot;database synchronization error&quot;) &amp;&amp; ret
             <stringProp name="filename"></stringProp>
           </ResultCollector>
           <hashTree/>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="welcome">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="welcome" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -39598,7 +39600,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -39699,7 +39701,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="1416404865">for registering and welcome</stringProp>
                 </collectionProp>
@@ -39710,7 +39712,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler">
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler" enabled="true">
               <stringProp name="cacheKey">true</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -39718,7 +39720,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
               <stringProp name="scriptLanguage">groovy</stringProp>
             </JSR223Sampler>
             <hashTree/>
-            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler">
+            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
               <boolProp name="displayJMeterProperties">false</boolProp>
               <boolProp name="displayJMeterVariables">true</boolProp>
               <boolProp name="displaySystemProperties">false</boolProp>
@@ -39737,7 +39739,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="registration_confirmation">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="registration_confirmation" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
@@ -39940,7 +39942,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl?intro=true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/login.pl?intro=true" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -40023,7 +40025,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-773065869">you can search for new flights to book</stringProp>
                 </collectionProp>
@@ -43031,12 +43033,12 @@ if (!AssertionResult.isFailure()) {
           <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Main_users.csv_registration">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Main_users.csv_registration" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">true</boolProp>
         </TransactionController>
         <hashTree>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -43073,7 +43075,7 @@ if (!AssertionResult.isFailure()) {
             <stringProp name="filename"></stringProp>
           </ResultCollector>
           <hashTree/>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="registration user">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="registration user" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">true</boolProp>
           </TransactionController>
@@ -43179,12 +43181,12 @@ if (!AssertionResult.isFailure()) {
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer">
+              <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Uniform Random Timer" enabled="true">
                 <stringProp name="RandomTimer.range">1000</stringProp>
                 <stringProp name="ConstantTimer.delay">3000</stringProp>
               </UniformRandomTimer>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -43329,7 +43331,7 @@ vars.put(&quot;address1&quot;, address1)
 vars.put(&quot;address2&quot;, address2)</stringProp>
               </JSR223PreProcessor>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="-1222424502">for registering and welcome to the Web Tours family</stringProp>
                 </collectionProp>
@@ -43376,7 +43378,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC1_Main_Buy">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="UC1_Main_Buy" enabled="true">
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
@@ -43408,7 +43410,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="shareMode">shareMode.thread</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
+          <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -43445,7 +43447,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="filename"></stringProp>
           </ResultCollector>
           <hashTree/>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -43477,7 +43479,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="filename"></stringProp>
           </ResultCollector>
           <hashTree/>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
               <stringProp name="764597751">Test Plan</stringProp>
@@ -43497,7 +43499,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flights">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flights" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
@@ -43802,18 +43804,18 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range"></stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="find_flights">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="find_flights" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -43922,7 +43924,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -43997,7 +43999,7 @@ vars.put(&quot;seatPref&quot;, seatPref)
 vars.put(&quot;roundtrip&quot;, roundtrip)</stringProp>
               </JSR223PreProcessor>
               <hashTree/>
-              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor outboundFlight ">
+              <BoundaryExtractor guiclass="BoundaryExtractorGui" testclass="BoundaryExtractor" testname="Boundary Extractor outboundFlight " enabled="true">
                 <stringProp name="BoundaryExtractor.useHeaders">false</stringProp>
                 <stringProp name="BoundaryExtractor.refname">outboundFlight</stringProp>
                 <stringProp name="BoundaryExtractor.lboundary">outboundFlight&quot; value=&quot;</stringProp>
@@ -44047,12 +44049,12 @@ vars.put(&quot;roundtrip&quot;, roundtrip)</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flight_selection">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="flight_selection" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -44169,7 +44171,7 @@ vars.put(&quot;roundtrip&quot;, roundtrip)</stringProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -44357,12 +44359,12 @@ if (!AssertionResult.isFailure()) {
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="payment">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="payment" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/reservations.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -44471,7 +44473,7 @@ if (!AssertionResult.isFailure()) {
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
-              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+              <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -44598,7 +44600,7 @@ vars.put(&quot;paymentBody&quot;, requestBody.toString())
 vars.put(&quot;boundary_payment&quot;, boundary2)</stringProp>
               </JSR223PreProcessor>
               <hashTree/>
-              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion">
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
                 <collectionProp name="Asserion.test_strings">
                   <stringProp name="2094968911">&lt;title&gt;Reservation Made!&lt;/title&gt;</stringProp>
                 </collectionProp>
@@ -44647,19 +44649,19 @@ if (!flightNumberFound || !dateFound) {
             </DebugSampler>
             <hashTree/>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
           </TestAction>
           <hashTree>
-            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause">
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pause" enabled="true">
               <stringProp name="ConstantTimer.delay">3000</stringProp>
               <stringProp name="RandomTimer.range">0</stringProp>
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="itinerary">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="itinerary" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
@@ -44873,7 +44875,7 @@ if (!flightNumberFound || !dateFound) {
               </ResponseAssertion>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/itinerary.pl">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="http://localhost:1080/cgi-bin/itinerary.pl" enabled="true">
               <stringProp name="HTTPSampler.domain">${url}</stringProp>
               <stringProp name="HTTPSampler.port">1080</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
@@ -44965,7 +44967,7 @@ if (!flightNumberFound || !dateFound) {
               <hashTree/>
             </hashTree>
           </hashTree>
-          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time">
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time" enabled="true">
             <intProp name="ActionProcessor.action">1</intProp>
             <intProp name="ActionProcessor.target">0</intProp>
             <stringProp name="ActionProcessor.duration"></stringProp>
@@ -44977,7 +44979,7 @@ if (!flightNumberFound || !dateFound) {
             </UniformRandomTimer>
             <hashTree/>
           </hashTree>
-          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="logout">
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="logout" enabled="true">
             <boolProp name="TransactionController.parent">true</boolProp>
             <boolProp name="TransactionController.includeTimers">false</boolProp>
           </TransactionController>
@@ -45229,7 +45231,7 @@ if (!flightNumberFound || !dateFound) {
             </collectionProp>
           </Arguments>
           <hashTree/>
-          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config">
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
             <stringProp name="filename">A:\\\\users.csv</stringProp>
             <stringProp name="fileEncoding"></stringProp>
             <stringProp name="variableNames">username,password,firstName,lastName,address1,address2</stringProp>
@@ -47735,7 +47737,7 @@ vars.put(&quot;dynamicBody&quot;, requestBody.toString());
                 <stringProp name="BoundaryExtractor.match_number">-1</stringProp>
               </BoundaryExtractor>
               <hashTree/>
-              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -50139,7 +50141,7 @@ log.info(&quot;Тело запроса для удаления: ${requestBody.to
                 <stringProp name="ConstantTimer.delay">2000</stringProp>
               </UniformRandomTimer>
               <hashTree/>
-              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
                 <stringProp name="scriptLanguage">groovy</stringProp>
                 <stringProp name="parameters"></stringProp>
                 <stringProp name="filename"></stringProp>
@@ -50978,7 +50980,7 @@ vars.put(&quot;address2&quot;, address2)</stringProp>
             </collectionProp>
           </Arguments>
           <hashTree/>
-          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config">
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
             <stringProp name="filename">A:\\\\users.csv</stringProp>
             <stringProp name="fileEncoding"></stringProp>
             <stringProp name="variableNames">username,password,firstName,lastName,address1,address2</stringProp>

@@ -13,7 +13,7 @@ import static io.gatling.javaapi.http.HttpDsl.*;
 public class UC5_Delete_tickets extends Simulation {
 
     // 🌐 Настройка HTTP-протокола: базовый URL, заголовки, поведение браузера
-    private HttpProtocolBuilder httpProtocol = http
+    public static HttpProtocolBuilder httpProtocol = http
             .baseUrl("http://localhost:1080") // Базовый URL приложения Web Tours
             .inferHtmlResources() // Автоматическая загрузка связанных ресурсов (CSS, JS, изображения)
             .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Форматы ответа
@@ -25,7 +25,7 @@ public class UC5_Delete_tickets extends Simulation {
     // Используется для всех запросов в сценарии, обеспечивая единообразие и совместимость с Web Tours.
 
     // 📋 Заголовки для различных типов запросов
-    private Map<CharSequence, String> headers_0 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_0 = Map.ofEntries(
             Map.entry("Priority", "u=0, i"),
             Map.entry("Sec-Fetch-Dest", "document"),
             Map.entry("Sec-Fetch-Mode", "navigate"),
@@ -33,14 +33,14 @@ public class UC5_Delete_tickets extends Simulation {
             Map.entry("Sec-Fetch-User", "?1")
     ); // Для главной страницы, выхода и переходов
 
-    private Map<CharSequence, String> headers_1 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_1 = Map.ofEntries(
             Map.entry("Priority", "u=4"),
             Map.entry("Sec-Fetch-Dest", "frame"),
             Map.entry("Sec-Fetch-Mode", "navigate"),
             Map.entry("Sec-Fetch-Site", "same-origin")
     ); // Для навигационных фреймов
 
-    private Map<CharSequence, String> headers_2 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_2 = Map.ofEntries(
             Map.entry("Origin", "http://localhost:1080"),
             Map.entry("Priority", "u=0, i"),
             Map.entry("Sec-Fetch-Dest", "document"),
@@ -49,7 +49,7 @@ public class UC5_Delete_tickets extends Simulation {
             Map.entry("Sec-Fetch-User", "?1")
     ); // Для POST-запроса логина
 
-    private Map<CharSequence, String> headers_8 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_8 = Map.ofEntries(
             Map.entry("Content-Type", "multipart/form-data; boundary=----#{boundary}"),
             Map.entry("Origin", "http://localhost:1080"),
             Map.entry("Priority", "u=4"),
@@ -59,7 +59,7 @@ public class UC5_Delete_tickets extends Simulation {
             Map.entry("Sec-Fetch-User", "?1")
     ); // Для POST-запроса удаления билетов
 
-    private Map<CharSequence, String> headers_14 = Map.ofEntries(
+    public static Map<CharSequence, String> headers_14 = Map.ofEntries(
             Map.entry("Accept", "image/avif,image/webp,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5"),
             Map.entry("Priority", "u=5, i"),
             Map.entry("Sec-Fetch-Dest", "image"),
@@ -70,18 +70,18 @@ public class UC5_Delete_tickets extends Simulation {
     // Используются для точного соответствия реальным HTTP-запросам, отправляемым Web Tours.
 
     // 🗂️ Фидер: циклически раздаёт пользователей из users.csv
-    private static final FeederBuilder<String> usersFeeder = csv("users.csv").circular();
+    public static final FeederBuilder<String> usersFeeder = csv("users.csv").circular();
     // Описание: Фидер загружает данные пользователей из users.csv (src/test/resources) и раздаёт их
     // виртуальным пользователям по кругу. Каждая запись содержит поля username, password, firstName,
     // lastName, address1, address2. Используется для авторизации.
 
     // 🗂️ Вспомогательные данные
-    private static final Random random = new Random();
+    public static final Random random = new Random();
     // Описание: Объект Random используется для генерации случайных данных (например, выбора билетов для удаления).
     // Инициализируется один раз для всех пользователей.
 
     // 🏠 Шаг 1: Загрузка главной страницы
-    private ChainBuilder homePage = group("Home_Page").on(
+    public static ChainBuilder homePage = group("Home_Page").on(
             exec(
                     http("Home_Page_0")
                             .get("/cgi-bin/welcome.pl?signOff=1") // Загрузка главной страницы с параметром выхода
@@ -112,7 +112,7 @@ public class UC5_Delete_tickets extends Simulation {
     // - Логирование: Отсутствует, так как нет явных System.out.println.
 
     // 🔐 Шаг 2: Вход в систему
-    private ChainBuilder login = group("Login").on(
+    public static ChainBuilder login = group("Login").on(
             feed(usersFeeder), // 🗂️ Подстановка данных пользователя из users.csv
             exec(session -> {
                 // ⚙️ Формирование полного имени пассажира (не используется в UC5, сохранено для совместимости)
@@ -120,7 +120,7 @@ public class UC5_Delete_tickets extends Simulation {
                 return session.set("pass1", pass1);
             }),
             exec(
-                    http("Login_0")
+                    http("login_0")
                             .post("/cgi-bin/login.pl") // Отправка формы логина
                             .headers(headers_2)
                             .formParam("userSession", "#{userSession}") // Идентификатор сессии из шага homePage
@@ -131,25 +131,25 @@ public class UC5_Delete_tickets extends Simulation {
                             .formParam("JSFormSubmit", "off")
                             .check(
                                     substring("User password was correct").exists(), // ✅ Проверка: авторизация успешна
-                                    bodyString().saveAs("tempResponse_login1") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_login_0") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Login_1")
+                    http("login_1")
                             .get("/cgi-bin/nav.pl?page=menu&in=home") // Обновление навигационной панели
                             .headers(headers_1)
                             .check(
                                     substring("Web Tours Navigation Bar").exists(), // ✅ Проверка: панель обновлена
-                                    bodyString().saveAs("tempResponse_login2") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_login_1") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Login_2")
+                    http("login_2")
                             .get("/cgi-bin/login.pl?intro=true") // Загрузка страницы приветствия
                             .headers(headers_1)
                             .check(
                                     substring("Welcome").exists(), // ✅ Проверка: страница приветствия загружена
-                                    bodyString().saveAs("tempResponse_login3") // 💾 Сохранение ответа
+                                    bodyString().saveAs("tempResponse_login_2") // 💾 Сохранение ответа
                             )
             )
     );
@@ -158,20 +158,20 @@ public class UC5_Delete_tickets extends Simulation {
     //   из users.csv для каждого виртуального пользователя.
     // - exec(session -> ...): Создаёт переменную pass1 (например, "Jo Jo") путём конкатенации firstName и lastName.
     //   Переменная pass1 не используется в UC5, но сохранена для совместимости с другими сценариями.
-    // - Login_0: Отправляет POST-запрос с формой логина, используя userSession и данные из фидера.
-    //   Проверяет успешность авторизации по тексту "User password was correct" и сохраняет ответ в tempResponse_login1.
-    // - Login_1: Обновляет навигационную панель после входа, проверяя её наличие ("Web Tours Navigation Bar"),
-    //   сохраняет ответ в tempResponse_login2.
-    // - Login_2: Загружает страницу приветствия, подтверждая вход текстом "Welcome", сохраняет ответ в tempResponse_login3.
+    // - login_0: Отправляет POST-запрос с формой логина, используя userSession и данные из фидера.
+    //   Проверяет успешность авторизации по тексту "User password was correct" и сохраняет ответ в tempResponse_login_0.
+    // - login_1: Обновляет навигационную панель после входа, проверяя её наличие ("Web Tours Navigation Bar"),
+    //   сохраняет ответ в tempResponse_login_1.
+    // - login_2: Загружает страницу приветствия, подтверждая вход текстом "Welcome", сохраняет ответ в tempResponse_login_2.
     // - Извлечённые переменные:
     //   - pass1: Полное имя пассажира (например, "Jo Jo"), не используется в UC5.
     //   - username, password, firstName, lastName, address1, address2: Из users.csv, используются в login.
     // - Логирование: Отсутствует, но username и password логируются позже в logItinerary.
 
     // 🗓️ Шаг 3: Просмотр маршрута
-    private ChainBuilder itinerary = group("Itinerary").on(
+    public static ChainBuilder itinerary = group("Itinerary").on(
             exec(
-                    http("Itinerary_0")
+                    http("itinerary_0")
                             .get("/cgi-bin/welcome.pl?page=itinerary") // Переход на страницу маршрута
                             .headers(headers_0)
                             .check(
@@ -180,7 +180,7 @@ public class UC5_Delete_tickets extends Simulation {
                             )
             ),
             exec(
-                    http("Itinerary_1")
+                    http("itinerary_1")
                             .get("/cgi-bin/nav.pl?page=menu&in=itinerary") // Обновление навигационной панели
                             .headers(headers_1)
                             .check(
@@ -189,18 +189,18 @@ public class UC5_Delete_tickets extends Simulation {
                             )
             ),
             exec(
-                    http("Itinerary_2")
+                    http("itinerary_2")
                             .get("/cgi-bin/itinerary.pl") // Загрузка списка бронирований
                             .headers(headers_1)
                             .check(
                                     substring("Flights List").exists(), // ✅ Проверка: список рейсов загружен
                                     substring("\"flightID\" value").exists(), // ✅ Проверка: наличие поля flightID в ответе
-                                    regex("name=\"flightID\" value=\"(.+?)\"").findAll().saveAs("flightIDs"), // ✅ Динамическая проверка: извлечение всех flightID
+                                    regex("name=\"flightID\" value=\"([^\"]+?)\"").findAll().saveAs("remainingFlightIDs"), // ✅ Динамическая проверка: извлечение всех flightID
                                     bodyString().saveAs("tempResponse_itinerary3") // 💾 Сохранение ответа
                             )
             ),
             exec(
-                    http("Itinerary_3")
+                    http("itinerary_3")
                             .get("/WebTours/images/cancelreservation.gif") // Загрузка изображения кнопки отмены
                             .headers(headers_14)
                             .check(
@@ -208,7 +208,7 @@ public class UC5_Delete_tickets extends Simulation {
                             )
             ),
             exec(
-                    http("Itinerary_4")
+                    http("itinerary_4")
                             .get("/WebTours/images/cancelallreservations.gif") // Загрузка изображения полной отмены
                             .headers(headers_14)
                             .check(
@@ -236,7 +236,7 @@ public class UC5_Delete_tickets extends Simulation {
     // - Логирование: Отсутствует, но flightIDs логируются позже в logItinerary.
 
     // 🗑️ Шаг 4: Удаление билетов
-    private ChainBuilder removal_itinerary = group("Removal_Itinerary").on(
+    public static ChainBuilder removal_itinerary = group("Removal_Itinerary").on(
             exec(session -> {
                 // ⚙️ Генерация уникальной границы для multipart/form-data
                 String boundary = "geckoformboundary" + UUID.randomUUID().toString().replace("-", "").substring(0, 16);
@@ -295,13 +295,13 @@ public class UC5_Delete_tickets extends Simulation {
                         .set("removedFlightIDs", removedFlightIDs);
             }),
             exec(
-                    http("Removal_Itinerary_0")
+                    http("removal_itinerary_0")
                             .post("/cgi-bin/itinerary.pl") // Удаление выбранных билетов
                             .headers(headers_8)
                             .body(StringBody("#{removeFlightsBody}"))
                             .check(
                                     substring("Itinerary").exists(), // ✅ Проверка: страница маршрута обновлена
-                                    regex("name=\"flightID\" value=\"(.+?)\"").findAll().saveAs("remainingFlightIDs"), // ✅ Динамическая проверка: извлечение оставшихся flightID
+                                 //   regex("name=\"flightID\" value=\"([^\"]+?)\"").findAll().saveAs("remainingFlightIDs"), // ✅ Динамическая проверка: извлечение оставшихся flightID
                                     bodyString().saveAs("tempResponse_removal") // 💾 Сохранение ответа
                             )
             )
@@ -332,9 +332,9 @@ public class UC5_Delete_tickets extends Simulation {
     // - Логирование: Отсутствует, но removedFlightIDs и remainingFlightIDs логируются в logItinerary.
 
     // 🔓 Шаг 5: Выход из системы
-    private ChainBuilder logout = group("Logout").on(
+    public static ChainBuilder logout = group("Logout").on(
             exec(
-                    http("Logout_0")
+                    http("logout_0")
                             .get("/cgi-bin/welcome.pl?signOff=1") // Запрос на выход
                             .headers(headers_0)
                             .check(
@@ -343,7 +343,7 @@ public class UC5_Delete_tickets extends Simulation {
                             )
             ),
             exec(
-                    http("Logout_1")
+                    http("logout_1")
                             .get("/cgi-bin/nav.pl?in=home") // Обновление навигационной панели
                             .headers(headers_1)
                             .check(
@@ -364,7 +364,7 @@ public class UC5_Delete_tickets extends Simulation {
     // - Логирование: Отсутствует.
 
     // 📜 Шаг 6: Логирование результатов удаления билетов
-    private ChainBuilder logItinerary = group("Log_Itinerary").on(
+    public static ChainBuilder logItinerary = group("Log_Itinerary").on(
             exec(session -> {
                 // ⚙️ Извлечение данных из сессии для логирования
                 String username = session.getString("username");
@@ -374,16 +374,16 @@ public class UC5_Delete_tickets extends Simulation {
                 List<String> remainingFlightIDs = session.get("remainingFlightIDs");
 
                 // ✅ Проверка успешности удаления
-                boolean deletionSuccessful = true;
+                boolean deletionSUCcessful = true;
                 if (removedFlightIDs != null && remainingFlightIDs != null) {
                     for (String removedID : removedFlightIDs) {
                         if (remainingFlightIDs.contains(removedID)) {
-                            deletionSuccessful = false;
+                            deletionSUCcessful = false;
                             break;
                         }
                     }
                 } else {
-                    deletionSuccessful = false;
+                    deletionSUCcessful = false;
                 }
 
                 // 📜 Логирование результатов
@@ -391,7 +391,7 @@ public class UC5_Delete_tickets extends Simulation {
                 System.out.println("Total Flights: " + (flightIDs != null ? flightIDs.size() : 0));
                 System.out.println("Removed Flight IDs: " + (removedFlightIDs != null ? removedFlightIDs : "None"));
                 System.out.println("Remaining Flight IDs: " + (remainingFlightIDs != null ? remainingFlightIDs : "None"));
-                System.out.println("Deletion Successful: " + (deletionSuccessful ? "SUCCESS" : "FAILURE"));
+                System.out.println("Deletion SUCcessful: " + (deletionSUCcessful ? "SUCCESS" : "FAILURE"));
 
                 return session;
             })
@@ -406,12 +406,12 @@ public class UC5_Delete_tickets extends Simulation {
     //     - Общее количество рейсов: "Total Flights: 5".
     //     - Удалённые flightID: "Removed Flight IDs: [123456, 789012]" или "None".
     //     - Оставшиеся flightID: "Remaining Flight IDs: [345678]" или "None".
-    //     - Результат проверки: "Deletion Successful: SUCCESS" или "FAILURE".
+    //     - Результат проверки: "Deletion SUCcessful: SUCCESS" или "FAILURE".
     // - Извлечённые переменные: Нет новых, используются существующие из сессии.
     // - Логирование: Подробный вывод всех данных и результатов проверок.
 
     // 📋 Сценарий: объединение всех шагов с паузами
-    private ScenarioBuilder scn = scenario("UC5_Delete_tickets")
+    public static ScenarioBuilder scn = scenario("UC5_Delete_tickets")
             .exec(homePage) // Шаг 1: Главная страница
             .pause(3) // ⏳ Пауза 3 секунды для реалистичности
             .exec(login) // Шаг 2: Вход
@@ -428,7 +428,7 @@ public class UC5_Delete_tickets extends Simulation {
     // Каждый шаг выполняется последовательно, передавая данные через сессию.
 
     // ⚙️ Настройка нагрузки: 1 пользователь сразу
-    private static final int USER_COUNT = 1;
+    public static final int USER_COUNT = 1;
 
     {
         // 🚀 Запуск сценария с настройкой HTTP-протокола
