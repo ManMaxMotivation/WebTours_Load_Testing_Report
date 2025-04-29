@@ -195,7 +195,7 @@ public class UC5_Delete_tickets extends Simulation {
                             .check(
                                     substring("Flights List").exists(), // ✅ Проверка: список рейсов загружен
                                     substring("\"flightID\" value").exists(), // ✅ Проверка: наличие поля flightID в ответе
-                                    regex("name=\"flightID\" value=\"([^\"]+?)\"").findAll().saveAs("remainingFlightIDs"), // ✅ Динамическая проверка: извлечение всех flightID
+                                    regex("name=\"flightID\" value=\"([^\"]+?)\"").findAll().saveAs("flightIDs"), // ✅ Динамическая проверка: извлечение всех flightID
                                     bodyString().saveAs("tempResponse_itinerary3") // 💾 Сохранение ответа
                             )
             ),
@@ -246,7 +246,7 @@ public class UC5_Delete_tickets extends Simulation {
                 int flightCount = flightIDs != null ? flightIDs.size() : 0;
 
                 // 🎲 Определение количества билетов для удаления
-                int ticketsToRemove = flightCount > 5 ? 2 : 1;
+                int ticketsToRemove = flightCount > 5 ? 3 : 1;
 
                 // 🎲 Случайный выбор индексов для удаления
                 Set<Integer> indicesToRemove = new HashSet<>();
@@ -301,7 +301,7 @@ public class UC5_Delete_tickets extends Simulation {
                             .body(StringBody("#{removeFlightsBody}"))
                             .check(
                                     substring("Itinerary").exists(), // ✅ Проверка: страница маршрута обновлена
-                                 //   regex("name=\"flightID\" value=\"([^\"]+?)\"").findAll().saveAs("remainingFlightIDs"), // ✅ Динамическая проверка: извлечение оставшихся flightID
+                      //              regex("name=\"flightID\" value=\"([^\"]+?)\"").findAll().saveAs("remainingFlightIDs"), // ✅ Динамическая проверка: извлечение оставшихся flightID
                                     bodyString().saveAs("tempResponse_removal") // 💾 Сохранение ответа
                             )
             )
@@ -374,24 +374,24 @@ public class UC5_Delete_tickets extends Simulation {
                 List<String> remainingFlightIDs = session.get("remainingFlightIDs");
 
                 // ✅ Проверка успешности удаления
-                boolean deletionSUCcessful = true;
+                boolean deletionSuccessful = true;
                 if (removedFlightIDs != null && remainingFlightIDs != null) {
                     for (String removedID : removedFlightIDs) {
                         if (remainingFlightIDs.contains(removedID)) {
-                            deletionSUCcessful = false;
+                            deletionSuccessful = false;
                             break;
                         }
                     }
                 } else {
-                    deletionSUCcessful = false;
+                    deletionSuccessful = false;
                 }
 
                 // 📜 Логирование результатов
-//                System.out.println("User Credentials: username=" + username + ", password=" + password);
-//                System.out.println("Total Flights: " + (flightIDs != null ? flightIDs.size() : 0));
-//                System.out.println("Removed Flight IDs: " + (removedFlightIDs != null ? removedFlightIDs : "None"));
-//                System.out.println("Remaining Flight IDs: " + (remainingFlightIDs != null ? remainingFlightIDs : "None"));
-//                System.out.println("Deletion SUCcessful: " + (deletionSUCcessful ? "SUCCESS" : "FAILURE"));
+                System.out.println("User Credentials: username=" + username + ", password=" + password);
+                System.out.println("Total Flights: " + (flightIDs != null ? flightIDs.size() : 0));
+                System.out.println("Removed Flight IDs: " + (removedFlightIDs != null ? removedFlightIDs : "None"));
+                System.out.println("Remaining Flight IDs: " + (remainingFlightIDs != null ? remainingFlightIDs : "None"));
+                System.out.println("Deletion Successful: " + (deletionSuccessful ? "SUCCESS" : "FAILURE"));
 
                 return session;
             })
@@ -428,8 +428,8 @@ public class UC5_Delete_tickets extends Simulation {
     // Каждый шаг выполняется последовательно, передавая данные через сессию.
 
     // 🚀 Настройка симуляции (закрытая модель)
-    private static final int USER_COUNT = 1;
-    private static final Duration TEST_DURATION = Duration.ofSeconds(1);
+    public static final int USER_COUNT = 1;
+    public static final Duration TEST_DURATION = Duration.ofSeconds(1);
 
     {
         setUp(
@@ -439,7 +439,7 @@ public class UC5_Delete_tickets extends Simulation {
         ).protocols(httpProtocol);
     }
 }
-    // Описание: Определяет профиль нагрузки для теста.
-    // - atOnceUsers(1): Запускает 1 пользователя сразу.
-    // - injectOpen: Модель открытой нагрузки, где пользователи добавляются независимо от завершения предыдущих.
-    // - protocols(httpProtocol): Применяет глобальные настройки HTTP ко всем запросам.
+// Описание: Определяет профиль нагрузки для теста.
+// - atOnceUsers(1): Запускает 1 пользователя сразу.
+// - injectOpen: Модель открытой нагрузки, где пользователи добавляются независимо от завершения предыдущих.
+// - protocols(httpProtocol): Применяет глобальные настройки HTTP ко всем запросам.
