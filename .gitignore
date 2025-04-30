@@ -15,7 +15,6 @@ Thumbs.db
 *.jtl
 *.bak
 *.sav
-result_*
 
 # 👉 JMeter временные файлы
 jmeter.log
@@ -23,7 +22,6 @@ bin/*.log
 report-output/
 
 # 👉 Gatling результаты
-Gatling/results/
 Gatling/user-files/simulations/**/*.class
 Gatling/user-files/resources/**/*.class
 
